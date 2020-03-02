@@ -30,10 +30,10 @@ class MyScene extends THREE.Scene {
     // Creamos el cilindro
     this.ejesCilindro = new THREE.AxesHelper (5);
     this.add (this.ejesCilindro);
+    this.ejesCilindro.position.set(0,7,0);
 
     this.cilindro = new MyCylinder(this.gui, "Controles del Cilindro");
-    this.ejesCilindro.add (this.cilindro);
-    this.ejesCilindro.position.set(0,7,0);
+    this.add (this.cilindro);
 
   }
   
