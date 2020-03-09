@@ -53,6 +53,32 @@ class MyScene extends THREE.Scene {
     this.add (this.cono);
     this.cono.position.set(7, 7, 0);
 
+    // Creamos la esfera
+    this.ejesEsfera = new THREE.AxesHelper (5);
+    this.add (this.ejesEsfera);
+    this.ejesEsfera.position.set(0, 7, 7);
+
+    this.esfera = new MySphere(this.gui, "Controles de la Esfera");
+    this.add (this.esfera);
+    this.esfera.position.set(0, 7, 7);
+
+    // Creamos el toro
+    this.ejesToro = new THREE.AxesHelper (5);
+    this.add (this.ejesToro);
+    this.ejesToro.position.set(0, 0, 7);
+
+    this.toro = new MyTorus(this.gui, "Controles del Toro");
+    this.add (this.toro);
+    this.toro.position.set(0, 0, 7);
+
+    // Creamos el icosaedro
+    this.ejesIco = new THREE.AxesHelper (5);
+    this.add (this.ejesIco);
+    this.ejesIco.position.set(0, -7, 0);
+
+    this.ico = new MyIcosahedron(this.gui, "Controles del Icosaedro");
+    this.add (this.ico);
+    this.ico.position.set(0, -7, 0);
   }
   
   createCamera () {
@@ -87,18 +113,18 @@ class MyScene extends THREE.Scene {
     // En este caso la intensidad de la luz y si se muestran o no los ejes
     this.guiControls = new function() {
       // En el contexto de una función   this   alude a la función
-      this.lightIntensity = 0.5;
-      this.axisOnOff = true;
+      this.flatShading = true;
     }
 
     // Se crea una sección para los controles de esta clase
     var folder = gui.addFolder ('Luz y Ejes');
-    
-    // Se le añade un control para la intensidad de la luz
-    folder.add (this.guiControls, 'lightIntensity', 0, 1, 0.1).name('Intensidad de la Luz : ');
-    
-    // Y otro para mostrar u ocultar los ejes
-    folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes : ');
+
+    // Sombreado plano
+    folder.add (this.guiControls, 'flatShading').name ('Sombreado plano')
+      .onChange(function(check){
+        this.cono.material.flatShading(check);
+        this.cono.material.needsUpdate(true);
+      });
     
     return gui;
   }
@@ -182,6 +208,10 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     this.cilindro.update();
     this.caja.update();
+    this.cono.update();
+    this.esfera.update();
+    this.toro.update();
+    this.ico.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

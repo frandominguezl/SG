@@ -47,19 +47,19 @@ class MyBox extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add (this.guiControls, 'sizeX', 0.1, 5.0, 0.1).name ('Tamaño X: ').listen()
+    folder.add (this.guiControls, 'sizeX', 1.0, 5.0, 0.1).name ('Tamaño X: ').listen()
       .onChange(function(sizeX){
         var newGeo = new THREE.BoxGeometry(sizeX, that.guiControls.sizeY, that.guiControls.sizeZ);
         that.box.geometry = newGeo;
       });
 
-    folder.add (this.guiControls, 'sizeY', 0.1, 5.0, 0.1).name ('Tamaño Y: ').listen()
+    folder.add (this.guiControls, 'sizeY', 1.0, 5.0, 0.1).name ('Tamaño Y: ').listen()
       .onChange(function(sizeY){
         var newGeo = new THREE.BoxGeometry(that.guiControls.sizeX, sizeY, that.guiControls.sizeZ);
         that.box.geometry = newGeo;
       });
 
-    folder.add (this.guiControls, 'sizeZ', 0.1, 5.0, 0.1).name ('Tamaño Z: ').listen()
+    folder.add (this.guiControls, 'sizeZ', 1.0, 5.0, 0.1).name ('Tamaño Z: ').listen()
       .onChange(function(sizeZ){
         var newGeo = new THREE.BoxGeometry(that.guiControls.sizeX, that.guiControls.sizeY, sizeZ);
         that.box.geometry = newGeo;
@@ -69,6 +69,7 @@ class MyBox extends THREE.Object3D {
   }
   
   update () {
-    
+    this.box.rotation.y += 0.015;
+    this.box.rotation.x += 0.015;
   }
 }

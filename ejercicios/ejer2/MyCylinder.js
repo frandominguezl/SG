@@ -48,21 +48,21 @@ class MyCylinder extends THREE.Object3D {
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    folder.add (this.guiControls, 'topRadius', 0.1, 5.0, 0.1).name ('Radio Superior : ').listen()
+    folder.add (this.guiControls, 'topRadius', 1.0, 5.0, 0.1).name ('Radio Superior : ').listen()
         .onChange(function(topRadius){
             var newGeo = new THREE.CylinderGeometry(topRadius, that.guiControls.bottomRadius, 
                 that.guiControls.height, that.guiControls.segments);
             that.cyl.geometry = newGeo;
         });
 
-    folder.add (this.guiControls, 'bottomRadius', 0.1, 5.0, 0.1).name ('Radio Inferior : ').listen()
+    folder.add (this.guiControls, 'bottomRadius', 1.0, 5.0, 0.1).name ('Radio Inferior : ').listen()
         .onChange(function(bottomRadius){
             var newGeo = new THREE.CylinderGeometry(that.guiControls.topRadius, bottomRadius, 
                 that.guiControls.height, that.guiControls.segments);
             that.cyl.geometry = newGeo;
         });
 
-    folder.add (this.guiControls, 'height', 0.1, 5.0, 0.1).name ('Altura : ').listen()
+    folder.add (this.guiControls, 'height', 1.0, 5.0, 0.1).name ('Altura : ').listen()
         .onChange(function(height){
             var newGeo = new THREE.CylinderGeometry(that.guiControls.topRadius, 
                 that.guiControls.bottomRadius, height, that.guiControls.segments);
@@ -84,6 +84,7 @@ class MyCylinder extends THREE.Object3D {
     }
 
     update () {
-
+        this.cyl.rotation.y += 0.015;
+        this.cyl.rotation.x += 0.015;
     }
 }
