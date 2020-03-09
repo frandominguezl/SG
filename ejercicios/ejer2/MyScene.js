@@ -27,6 +27,15 @@ class MyScene extends THREE.Scene {
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
 
+    // Creamos la caja
+    this.ejesCaja = new THREE.AxesHelper (5);
+    this.add (this.ejesCaja);
+    this.ejesCaja.position.set(7, 0, 0);
+
+    this.caja = new MyBox(this.gui, "Controles de la Caja");
+    this.caja.position.set(7, 0, 0);
+    this.add (this.caja);
+
     // Creamos el cilindro
     this.ejesCilindro = new THREE.AxesHelper (5);
     this.add (this.ejesCilindro);
@@ -34,6 +43,15 @@ class MyScene extends THREE.Scene {
 
     this.cilindro = new MyCylinder(this.gui, "Controles del Cilindro");
     this.add (this.cilindro);
+
+    // Creamos el cono
+    this.ejesCono = new THREE.AxesHelper (5);
+    this.add (this.ejesCono);
+    this.ejesCono.position.set(7, 7, 0);
+
+    this.cono = new MyCone(this.gui, "Controles del Cono");
+    this.add (this.cono);
+    this.cono.position.set(7, 7, 0);
 
   }
   
@@ -163,6 +181,7 @@ class MyScene extends THREE.Scene {
     
     // Se actualiza el resto del modelo
     this.cilindro.update();
+    this.caja.update();
     
     // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
     this.renderer.render (this, this.getCamera());

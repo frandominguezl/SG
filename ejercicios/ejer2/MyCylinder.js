@@ -8,7 +8,8 @@ class MyCylinder extends THREE.Object3D {
         this.createGUI(gui,titleGui);
         
         // Un Mesh se compone de geometría y material
-        var cylGeom = new THREE.CylinderGeometry (1,1,1,3);
+        var cylGeom = new THREE.CylinderGeometry (this.guiControls.topRadius, this.guiControls.bottomRadius, 
+            this.guiControls.height, this.guiControls.segments);
         // Como material se crea uno a partir de un color
         var cylMat = new THREE.MeshNormalMaterial();
         
@@ -49,29 +50,36 @@ class MyCylinder extends THREE.Object3D {
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
     folder.add (this.guiControls, 'topRadius', 0.1, 5.0, 0.1).name ('Radio Superior : ').listen()
         .onChange(function(topRadius){
-            var newGeo = new THREE.CylinderGeometry(topRadius, this.bottomRadius, this.height, this.segments);
+            var newGeo = new THREE.CylinderGeometry(topRadius, that.guiControls.bottomRadius, 
+                that.guiControls.height, that.guiControls.segments);
             that.cyl.geometry = newGeo;
         });
 
     folder.add (this.guiControls, 'bottomRadius', 0.1, 5.0, 0.1).name ('Radio Inferior : ').listen()
         .onChange(function(bottomRadius){
-            var newGeo = new THREE.CylinderGeometry(this.topRadius, bottomRadius, this.height, this.segments);
+            var newGeo = new THREE.CylinderGeometry(that.guiControls.topRadius, bottomRadius, 
+                that.guiControls.height, that.guiControls.segments);
             that.cyl.geometry = newGeo;
         });
 
     folder.add (this.guiControls, 'height', 0.1, 5.0, 0.1).name ('Altura : ').listen()
         .onChange(function(height){
-            var newGeo = new THREE.CylinderGeometry(this.topRadius, this.bottomRadius, height, this.segments);
+            var newGeo = new THREE.CylinderGeometry(that.guiControls.topRadius, 
+                that.guiControls.bottomRadius, height, that.guiControls.segments);
             that.cyl.geometry = newGeo;
         });
 
-    folder.add (this.guiControls, 'segments', 3, 50.0, 1.0).name ('Segmentos : ').listen()
+    folder.add (this.guiControls, 'segments', 3, 20.0, 1.0).name ('Segmentos : ').listen()
         .onChange(function(segments){
-            var newGeo = new THREE.CylinderGeometry(this.topRadius, this.bottomRadius, this.height, segments);
+            var newGeo = new THREE.CylinderGeometry(that.guiControls.topRadius, 
+                that.guiControls.bottomRadius, that.guiControls.height, segments);
             that.cyl.geometry = newGeo;
         });
     
-    folder.add (this.guiControls, 'reset').name ('[ Reset ]');
+    folder.add (this.guiControls, 'reset').name ('[ Reset ]')
+        .onChange(function(){
+
+        });
 
     }
 
