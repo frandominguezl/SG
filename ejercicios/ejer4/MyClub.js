@@ -12,29 +12,26 @@ class MyClub extends THREE.Object3D {
     this.points.push(new THREE.Vector3 (0.0,0.75,0.0));
 
     var geoPie = new THREE.LatheGeometry(this.points);
-    var material = new THREE.MeshPhongMaterial({color: 0xff0000});
+    var material = new THREE.MeshPhongMaterial({color: 0x0208ca});
 
     this.pie = new THREE.Mesh(geoPie, material);
 
     // Creamos la figura
     var clubShape = new THREE.Shape()
-    .moveTo( 0.0, 0.0 )
-    .bezierCurveTo( x + 30/25, y + 25/25, x + 20/25, y, x, y )
-    .bezierCurveTo( x - 30/25, y, x - 30/25, y + 35/25, x - 30/25, y + 35/25 )
-    .bezierCurveTo( x - 30/25, y + 55/25, x - 25/25, y + 77/25, x + 25/25, y + 95/25 )
-    .bezierCurveTo( x + 60/25, y + 77/25, x + 80/25, y + 55/25, x + 80/25, y + 35/25 )
-    .bezierCurveTo( x + 80/25, y + 35/25, x + 80/25, y, x + 50/25, y )
-    .bezierCurveTo( x + 35/25, y, x + 25/25, y + 25/25, x + 25/25, y + 25/25 );
+    .moveTo( 1.5, 0.0 )
+    .bezierCurveTo( -4.5, -3.7, -3, 5.3, 0, 3 )
+    .bezierCurveTo( -1.4, 7.5, 4.4, 7, 3, 3)
+    .bezierCurveTo( 6.5, 4.3, 7.0, -3.7, 1.5, 0.0);
 
-    var extrudeSettings = { depth: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1 };
+    var extrudeSettings = { depth: 0.5, steps: 100, bevelSize: 1, bevelThickness: 0.5, bevelSegments: 100 };
 
     var geoClub = new THREE.ExtrudeBufferGeometry(clubShape, extrudeSettings);
     this.trebol = new THREE.Mesh(geoClub, material);
-    this.pie.scale.set(2, 2, 2);
-    this.pie.position.set(1.0, -0.5, 0.0);
+    this.pie.scale.set(3, 3, 3);
+    this.pie.position.set(1.5, -3.0, 0.0);
 
     this.nodo = new THREE.Object3D();
-    this.nodo.position.set(2.0, 2.0, 0.0);
+    this.nodo.position.set(-5.0, -4.5, 0.0);
     this.nodo.add(this.trebol);
     this.nodo.add(this.pie);
     this.nodo.scale.set(0.5,0.5,0.5);

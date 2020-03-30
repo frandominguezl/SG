@@ -42,6 +42,17 @@ class MyScene extends THREE.Scene {
     this.diamante = new MyDiamond(this.gui, "Controles del Diamante");
     this.add (this.diamante);
 
+    // Creamos el trébol
+    this.trebol = new MyClub(this.gui, "Controles del Trébol");
+    this.add (this.trebol);
+
+    // Columna de trébol
+    this.columnatrebol = new MyClubSpline(this.gui, "Controles de la Columna Trébol");
+    this.add (this.columnatrebol);
+
+    // Columna de corazón
+    this.columnacorazon = new MyHeartSpline(this.gui, "Controles de la Columna Corazón");
+    this.add (this.columnacorazon);
   }
   
   createCamera () {
@@ -172,6 +183,13 @@ class MyScene extends THREE.Scene {
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
     
+    // Actualizamos los objetos
+    this.corazon.update();
+    this.diamante.update();
+    this.trebol.update();
+    this.pica.update();
+    this.columnatrebol.update();
+    this.columnacorazon.update();
   }
 }
 

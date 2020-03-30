@@ -16,7 +16,7 @@ class MyHeart extends THREE.Object3D {
     .bezierCurveTo( x + 35/25, y, x + 25/25, y + 25/25, x + 25/25, y + 25/25 );
 
     // Variables para la extrusión
-    var extrudeSettings = { depth: 1, bevelEnabled: false, bevelSegments: 1, steps: 1, bevelSize: 1, bevelThickness: 1 };
+    var extrudeSettings = { depth: 0.5, steps: 100, bevelSize: 1, bevelThickness: 0.5, bevelSegments: 100 };
 
     var geoCorazon = new THREE.ExtrudeBufferGeometry(heartShape, extrudeSettings);
 
@@ -25,11 +25,13 @@ class MyHeart extends THREE.Object3D {
     this.corazon = new THREE.Mesh(geoCorazon, material);
     
     this.corazon.rotation.set(0, 0, Math.PI);
-    this.corazon.position.set(4.0, 0.0, 0);
+    this.corazon.position.set(4.0, -2.0, 0);
+    this.corazon.scale.set(0.75, 0.75, 0.75);
 
     this.add(this.corazon);
   }
   
   update () {
+
   }
 }
