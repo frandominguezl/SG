@@ -37,7 +37,7 @@ class MyMug extends THREE.Object3D {
         this.resultado.geometry.computeFaceNormals();
         this.resultado.geometry.computeVertexNormals();
 
-        this.resultado.position.set(-6, 0, 0);
+        this.resultado.position.set(-4, 0, 0);
 
         // Y añadirlo como hijo del Object3D (el this)
         this.add (this.resultado);
@@ -48,7 +48,6 @@ class MyMug extends THREE.Object3D {
     }
 
     update () {
-        this.resultado.rotation.x += 0.01;
-        this.resultado.rotation.y += 0.01;
+        
     }
 }

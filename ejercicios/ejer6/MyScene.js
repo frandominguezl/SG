@@ -28,17 +28,9 @@ class MyScene extends THREE.Scene {
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
     
-    // Creamos la taza
-    this.taza = new MyMug(this.gui, "Controles Taza");
-    this.add (this.taza);
-
-    // Creamos la escuadra
-    this.escuadra = new MyEscuadra(this.gui, "Controles Escuadra");
-    this.add (this.escuadra);
-
-    // Creamos la tuerca
-    /*this.tuerca = new MyTuerca(this.gui, "Controles Tuerca");
-    this.add (this.tuerca);*/
+    // Creamos el modelo
+    this.porsche = new MyModel();
+    this.add (this.porsche);
   }
   
   createCamera () {
