@@ -1,11 +1,7 @@
  
 class MyEscuadra extends THREE.Object3D {
-    constructor(gui,titleGui) {
+    constructor() {
         super();
-        
-        // Se crea la parte de la interfaz que corresponde a la caja
-        // Se crea primero porque otros métodos usan las variables que se definen para la interfaz
-        this.createGUI(gui,titleGui);
         
         // Como material se crea uno a partir de un color
         var material = new THREE.MeshNormalMaterial();
@@ -50,10 +46,6 @@ class MyEscuadra extends THREE.Object3D {
 
         // Y añadirlo como hijo del Object3D (el this)
         this.add (this.final);
-    }
-
-    createGUI (gui,titleGui) {
-        
     }
 
     update () {

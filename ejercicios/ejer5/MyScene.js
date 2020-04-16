@@ -29,16 +29,16 @@ class MyScene extends THREE.Scene {
     this.add (this.axis);
     
     // Creamos la taza
-    this.taza = new MyMug(this.gui, "Controles Taza");
+    this.taza = new MyMug();
     this.add (this.taza);
 
     // Creamos la escuadra
-    this.escuadra = new MyEscuadra(this.gui, "Controles Escuadra");
+    this.escuadra = new MyEscuadra();
     this.add (this.escuadra);
 
     // Creamos la tuerca
-    /*this.tuerca = new MyTuerca(this.gui, "Controles Tuerca");
-    this.add (this.tuerca);*/
+    this.tuerca = new MyTuerca();
+    this.add (this.tuerca);
   }
   
   createCamera () {
@@ -177,6 +177,7 @@ class MyScene extends THREE.Scene {
     if(this.guiControls.animacion) {
       this.taza.update();
       this.escuadra.update();
+      this.tuerca.update();
     }
   }
 }
