@@ -59,10 +59,11 @@ class MyPendulo extends THREE.Object3D {
         
         this.cajaD = new THREE.Mesh(geoCaja, materialCajaAzul);
         this.cajaD.scale.y = 10.0;
-        this.cajaD.position.y = -2.0;
+        this.cajaD.position.y = 0.5;
 
-        var nodo5 = new THREE.Object3D();
-        nodo5.add(this.cajaD);
+        this.nodo5 = new THREE.Object3D();
+        this.nodo5.add(this.cajaD);
+        //this.nodo5.position.y = -2.0;
 
         // Eje del segundo péndulo
         var cilindroEje2 = new THREE.CylinderGeometry(0.25, 0.25, 0.75);
@@ -71,8 +72,9 @@ class MyPendulo extends THREE.Object3D {
         this.cilindroEje2Mesh = new THREE.Mesh(cilindroEje2, materialEjes);
 
         this.nodo6 = new THREE.Object3D();
-        this.nodo6.add(nodo5);
+        this.nodo6.add(this.nodo5);
         this.nodo6.add(this.cilindroEje2Mesh);
+        this.nodo6.position.y = -2.5;
 
         var nodoFinal = new THREE.Object3D();
         nodoFinal.add(nodo4);
@@ -107,7 +109,8 @@ class MyPendulo extends THREE.Object3D {
         this.cajaC.position.y = -4.0-this.guiControls.escalaPrimerPendulo;
         this.rotation.z = this.guiControls.rotPrimerPendulo;
         this.cajaD.scale.y = this.guiControls.escalaSegundoPendulo;
-        this.cajaD.rotation.z = this.guiControls.rotSegundoPendulo;
+        var ejeRotar = new THREE.Vector3(0, 0, 1);
+        this.nodo6.rotation.z = this.guiControls.rotSegundoPendulo;
         this.nodo6.position.y = -(this.guiControls.escalaPrimerPendulo*this.guiControls.posRelativa/100);
     }
 }

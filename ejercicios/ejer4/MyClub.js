@@ -24,24 +24,33 @@ class MyClub extends THREE.Object3D {
     .bezierCurveTo( 6.5, 4.3, 7.0, -3.7, 1.5, 0.0);
 
     var extrudeSettings = { depth: 0.5, steps: 100, bevelSize: 1, bevelThickness: 0.5, bevelSegments: 100 };
-
+    
+    // Nodo inicial
     var geoClub = new THREE.ExtrudeBufferGeometry(clubShape, extrudeSettings);
     this.trebol = new THREE.Mesh(geoClub, material);
-    this.pie.scale.set(3, 3, 3);
-    this.pie.position.set(1.5, -3.0, 0.0);
+    this.trebol.scale.set(0.5, 0.5, 0.5);
+    this.pie.scale.set(2, 2, 2);
+    this.pie.position.set(0.7, -2.0, 0.0);
 
-    this.nodo = new THREE.Object3D();
-    this.nodo.position.set(-5.0, -4.5, 0.0);
-    this.nodo.add(this.trebol);
-    this.nodo.add(this.pie);
-    this.nodo.scale.set(0.5,0.5,0.5);
+    this.nodoInicial = new THREE.Object3D();
+    this.nodoInicial.add(this.trebol);
+    this.nodoInicial.add(this.pie);
+    this.nodoInicial.position.set(-0.5, -0.5, 0.0);
+    
+    // Segundo nodo
+    this.nodo2 = new THREE.Object3D();
+    this.nodo2.position.set(-5.0, -4.5, 0.0);
+    this.nodo2.add(this.nodoInicial);
 
-    this.spade = new THREE.Object3D();
-    this.spade.add(this.nodo);
+    this.club = new THREE.Object3D();
+    this.club.add(this.nodo2);
 
-    this.add(this.spade);
+    this.add(this.club);
     }
 
     update () {
+        this.club.rotation.z += 0.01;
+        this.nodo2.rotation.z -= 0.01;
+        this.nodoInicial.rotation.y += 0.015;
     }
 }

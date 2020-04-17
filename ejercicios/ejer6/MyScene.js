@@ -167,8 +167,7 @@ class MyScene extends THREE.Scene {
     
     // Actualizamos los objetos
     if(this.guiControls.animacion) {
-      this.taza.update();
-      this.escuadra.update();
+      this.porsche.update();
     }
   }
 }

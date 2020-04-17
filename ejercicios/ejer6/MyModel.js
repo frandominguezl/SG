@@ -17,4 +17,8 @@ class MyModel extends THREE.Object3D {
             }, null, null);
         });
     }
+
+    update() {
+        this.rotation.y += 0.01;
+    }
 }

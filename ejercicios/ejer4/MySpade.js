@@ -29,28 +29,33 @@ class MySpade extends THREE.Object3D {
     .bezierCurveTo( x + 35/25, y, x + 25/25, y + 25/25, x + 25/25, y + 25/25 );
 
     var extrudeSettings = { depth: 0.5, steps: 100, bevelSize: 1, bevelThickness: 0.5, bevelSegments: 100 };
-
+    
+    // Nodo inicial
     var geoSpade = new THREE.ExtrudeBufferGeometry(spadeShape, extrudeSettings);
     this.pica = new THREE.Mesh(geoSpade, material);
+    this.pica.scale.set(0.75, 0.75, 0.75);
     this.pie.scale.set(2, 2, 2);
-    this.pie.position.set(1.0, -2.0, 0.0);
+    this.pie.position.set(0.8, -2.0, 0.0);
 
-    this.nodo = new THREE.Object3D();
-    this.nodo.position.set(3.0, 4.0, 0.0);
-    this.nodo.add(this.pica);
-    this.nodo.add(this.pie);
+    this.nodoInicial = new THREE.Object3D();
+    this.nodoInicial.add(this.pica);
+    this.nodoInicial.add(this.pie);
+    this.nodoInicial.position.set(-0.8, -1.7, 0.0);
+
+    // Segundo nodo
+    this.nodo2 = new THREE.Object3D();
+    this.nodo2.position.set(4.5, 4.5, 0.0);
+    this.nodo2.add(this.nodoInicial);
 
     this.spade = new THREE.Object3D();
-    this.spade.scale.set(0.75, 0.75, 0.75);
-    this.spade.add(this.nodo);
+    this.spade.add(this.nodo2);
 
     this.add(this.spade);
     }
 
     update () {
         this.spade.rotation.z += 0.01;
-        this.nodo.rotation.z -= 0.01;
-        this.pica.rotation.y += 0.015;
-        this.pie.rotation.y += 0.015;
+        this.nodo2.rotation.z -= 0.01;
+        this.nodoInicial.rotation.y += 0.015;
     }
 }

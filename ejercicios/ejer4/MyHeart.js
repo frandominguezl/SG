@@ -3,7 +3,7 @@ class MyHeart extends THREE.Object3D {
   constructor(gui,titleGui) {
     super();
     
-    var x = 0, y = 0;
+    var x = -1, y = -1;
 
     // Creamos la figura
     var heartShape = new THREE.Shape()
@@ -23,15 +23,24 @@ class MyHeart extends THREE.Object3D {
     var material = new THREE.MeshPhongMaterial({color: 0xff0000})
 
     this.corazon = new THREE.Mesh(geoCorazon, material);
-    
     this.corazon.rotation.set(0, 0, Math.PI);
-    this.corazon.position.set(4.0, -2.0, 0);
     this.corazon.scale.set(0.75, 0.75, 0.75);
 
-    this.add(this.corazon);
+    // Primer nodo
+    this.nodo1 = new THREE.Object3D();
+    this.nodo1.position.set(4.0, -2.5, 0);
+    this.nodo1.add (this.corazon);
+
+    // Segundo nodo
+    this.nodo2 = new THREE.Object3D();
+    this.nodo2.add(this.nodo1);
+
+    this.add(this.nodo2);
   }
   
   update () {
-
+    this.nodo2.rotation.z += 0.01;
+    this.nodo1.rotation.z -= 0.01;
+    this.corazon.rotation.y += 0.015;
   }
 }

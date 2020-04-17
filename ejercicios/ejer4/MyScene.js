@@ -90,6 +90,7 @@ class MyScene extends THREE.Scene {
       // En el contexto de una función   this   alude a la función
       this.lightIntensity = 0.5;
       this.axisOnOff = true;
+      this.animacion = false;
     }
 
     // Se crea una sección para los controles de esta clase
@@ -100,6 +101,10 @@ class MyScene extends THREE.Scene {
     
     // Y otro para mostrar u ocultar los ejes
     folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes : ');
+
+    // Animación
+    var folder2 = gui.addFolder ('Animación');
+    folder2.add (this.guiControls, 'animacion').name ('Animación :');
     
     return gui;
   }
@@ -184,12 +189,14 @@ class MyScene extends THREE.Scene {
     this.cameraControl.update();
     
     // Actualizamos los objetos
-    this.corazon.update();
-    this.diamante.update();
-    this.trebol.update();
-    this.pica.update();
-    this.columnatrebol.update();
-    this.columnacorazon.update();
+    if(this.guiControls.animacion) {
+      this.corazon.update();
+      this.diamante.update();
+      this.trebol.update();
+      this.pica.update();
+      this.columnatrebol.update();
+      this.columnacorazon.update();
+    }
   }
 }
 
