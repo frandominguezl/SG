@@ -1,18 +1,17 @@
+ 
 /// La clase fachada del modelo
 /**
  * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
  */
 
 class MyScene extends THREE.Scene {
-  // Recibe el  div  que se ha creado en el  html  que va a ser el lienzo en el que mostrar
-  // la visualización de la escena
-  constructor (myCanvas) { 
+  constructor (myCanvas) {
     super();
     
     // Lo primero, crear el visualizador, pasándole el lienzo sobre el que realizar los renderizados.
     this.renderer = this.createRenderer(myCanvas);
     
-    // Se crea la interfaz gráfica de usuario
+    // Se añade a la gui los controles para manipular los elementos de esta clase
     this.gui = this.createGUI ();
     
     // Construimos los distinos elementos que tendremos en la escena
@@ -24,23 +23,29 @@ class MyScene extends THREE.Scene {
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera ();
     
+    // Un suelo 
+    // this.createGround ();
+    
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
     
-    // Creamos el péndulo
-    this.pendulo = new MyPendulo(this.gui, "Controles Péndulo");
-    this.add (this.pendulo);
+    
+    // Por último creamos el modelo.
+    // El modelo puede incluir su parte de la interfaz gráfica de usuario. Le pasamos la referencia a 
+    // la gui y el texto bajo el que se agruparán los controles de la interfaz que añada el modelo.
+    this.model = new Pendulos(this.gui, "Controles de los Péndulos");
+    this.add (this.model);
   }
   
   createCamera () {
     // Para crear una cámara le indicamos
-    //   El ángulo del campo de visión vértical en grados sexagesimales
+    //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (0, 0, 30);
+    this.camera.position.set (20, 10, 20);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
@@ -48,13 +53,33 @@ class MyScene extends THREE.Scene {
     
     // Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
     this.cameraControl = new THREE.TrackballControls (this.camera, this.renderer.domElement);
-    
     // Se configuran las velocidades de los movimientos
     this.cameraControl.rotateSpeed = 5;
     this.cameraControl.zoomSpeed = -2;
     this.cameraControl.panSpeed = 0.5;
     // Debe orbitar con respecto al punto de mira de la cámara
     this.cameraControl.target = look;
+  }
+  
+  createGround () {
+    // El suelo es un Mesh, necesita una geometría y un material.
+    
+    // La geometría es una caja con muy poca altura
+    var geometryGround = new THREE.BoxGeometry (50,0.2,50);
+    
+    // El material se hará con una textura de madera
+    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
+    var materialGround = new THREE.MeshPhongMaterial ({map: texture});
+    
+    // Ya se puede construir el Mesh
+    var ground = new THREE.Mesh (geometryGround, materialGround);
+    
+    // Todas las figuras se crean centradas en el origen.
+    // El suelo lo bajamos la mitad de su altura para que el origen del mundo se quede en su lado superior
+    ground.position.y = -0.1;
+    
+    // Que no se nos olvide añadirlo a la escena, que en este caso es  this
+    this.add (ground);
   }
   
   createGUI () {
@@ -68,7 +93,6 @@ class MyScene extends THREE.Scene {
       // En el contexto de una función   this   alude a la función
       this.lightIntensity = 0.5;
       this.axisOnOff = true;
-      this.animacion = false;
     }
 
     // Se crea una sección para los controles de esta clase
@@ -132,7 +156,7 @@ class MyScene extends THREE.Scene {
     // Y si se cambia ese dato hay que actualizar la matriz de proyección de la cámara
     this.camera.updateProjectionMatrix();
   }
-    
+  
   onWindowResize () {
     // Este método es llamado cada vez que el usuario modifica el tamapo de la ventana de la aplicación
     // Hay que actualizar el ratio de aspecto de la cámara
@@ -147,10 +171,7 @@ class MyScene extends THREE.Scene {
     
     // Literalmente le decimos al navegador: "La próxima vez que haya que refrescar la pantalla, llama al método que te indico".
     // Si no existiera esta línea,  update()  se ejecutaría solo la primera vez.
-    requestAnimationFrame(() => this.update());
-    
-    // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
-    this.renderer.render (this, this.getCamera());
+    requestAnimationFrame(() => this.update())
 
     // Se actualizan los elementos de la escena para cada frame
     // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
@@ -158,15 +179,17 @@ class MyScene extends THREE.Scene {
     
     // Se muestran o no los ejes según lo que idique la GUI
     this.axis.visible = this.guiControls.axisOnOff;
-
+    
     // Se actualiza la posición de la cámara según su controlador
     this.cameraControl.update();
-
-    // Actualizamos el péndulo
-    this.pendulo.update();
+    
+    // Se actualiza el resto del modelo
+    this.model.update();
+    
+    // Le decimos al renderizador "visualiza la escena que te indico usando la cámara que te estoy pasando"
+    this.renderer.render (this, this.getCamera());
   }
 }
-
 
 /// La función   main
 $(function () {
