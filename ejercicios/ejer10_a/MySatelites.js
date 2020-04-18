@@ -1,6 +1,6 @@
  
 class MySatelites extends THREE.Object3D {
-    constructor(position) {
+    constructor() {
         super();
 
         // Geometría esferas

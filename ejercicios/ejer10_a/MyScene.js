@@ -29,7 +29,7 @@ class MyScene extends THREE.Scene {
     this.add (this.axis);
     
     // Creamos el péndulo
-    this.satelites = new MySatelites(this.camera.position);
+    this.satelites = new MySatelites();
     this.add (this.satelites);
   }
   
