@@ -75,7 +75,7 @@ class MyScene extends THREE.Scene {
     
     // Todas las figuras se crean centradas en el origen.
     // El suelo lo bajamos la mitad de su altura para que el origen del mundo se quede en su lado superior
-    ground.position.y = -0.4;
+    ground.position.y = -0.5;
     
     // Que no se nos olvide añadirlo a la escena, que en este caso es  this
     this.add (ground);
