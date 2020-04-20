@@ -5,6 +5,10 @@ class MyPendulo extends THREE.Object3D {
 
         // Creamos la GUI
         this.createGUI(gui, titleGui);
+
+        // Variable de animación
+        this.animarDerechaP1 = false;
+        this.animarDerechaP2 = false;
         
         // Como material se crea uno a partir de un color
         var materialCajaVerde = new THREE.MeshPhongMaterial({color: 0x43B611});
@@ -124,12 +128,41 @@ class MyPendulo extends THREE.Object3D {
         this.nodo5.rotation.z = this.guiControls.rotSegundoPendulo;
         this.nodo6.position.y = -(this.guiControls.escalaPrimerPendulo*this.guiControls.posRelativa/100);
 
+
         if(this.guiControls.animPendulo1) {
-            this.rotation.z += 0.1*(this.guiControls.velocidadP1/10);
+            if(this.guiControls.rotPrimerPendulo >= 0.5) {
+                this.animarDerechaP1 = false;
+            }
+
+            if(this.guiControls.rotPrimerPendulo <= -0.5) {
+                this.animarDerechaP1 = true;
+            }
+
+            if(this.animarDerechaP1) {
+                this.guiControls.rotPrimerPendulo += 0.1*(this.guiControls.velocidadP1/10);
+            }
+            
+            else {
+                this.guiControls.rotPrimerPendulo -= 0.1*(this.guiControls.velocidadP1/10);
+            }
         }
 
         if(this.guiControls.animPendulo2) {
-            this.nodo5.rotation.z += 0.1*(this.guiControls.velocidadP2/10);
+            if(this.guiControls.rotSegundoPendulo >= 0.5) {
+                this.animarDerechaP2 = false;
+            }
+
+            if(this.guiControls.rotSegundoPendulo <= -0.5) {
+                this.animarDerechaP2 = true;
+            }
+
+            if(this.animarDerechaP2) {
+                this.guiControls.rotSegundoPendulo += 0.1*(this.guiControls.velocidadP2/10);
+            }
+            
+            else {
+                this.guiControls.rotSegundoPendulo -= 0.1*(this.guiControls.velocidadP2/10);
+            }
         }
     }
 }
