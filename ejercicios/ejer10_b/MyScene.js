@@ -23,6 +23,9 @@ class MyScene extends THREE.Scene {
     
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera ();
+
+    // Un suelo 
+    this.createGround ();
     
     // Y unos ejes. Imprescindibles para orientarnos sobre dónde están las cosas
     this.axis = new THREE.AxesHelper (5);
@@ -40,7 +43,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
     // También se indica dónde se coloca
-    this.camera.position.set (0, 0, 30);
+    this.camera.position.set (20, 10, 20);
     // Y hacia dónde mira
     var look = new THREE.Vector3 (0,0,0);
     this.camera.lookAt(look);
@@ -55,6 +58,27 @@ class MyScene extends THREE.Scene {
     this.cameraControl.panSpeed = 0.5;
     // Debe orbitar con respecto al punto de mira de la cámara
     this.cameraControl.target = look;
+  }
+
+  createGround () {
+    // El suelo es un Mesh, necesita una geometría y un material.
+    
+    // La geometría es una caja con muy poca altura
+    var geometryGround = new THREE.BoxGeometry (50,0.2,50);
+    
+    // El material se hará con una textura de madera
+    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
+    var materialGround = new THREE.MeshPhongMaterial ({map: texture});
+    
+    // Ya se puede construir el Mesh
+    var ground = new THREE.Mesh (geometryGround, materialGround);
+    
+    // Todas las figuras se crean centradas en el origen.
+    // El suelo lo bajamos la mitad de su altura para que el origen del mundo se quede en su lado superior
+    ground.position.y = -0.4;
+    
+    // Que no se nos olvide añadirlo a la escena, que en este caso es  this
+    this.add (ground);
   }
   
   createGUI () {

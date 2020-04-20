@@ -76,7 +76,7 @@ class MyBola extends THREE.Object3D {
             .onChange(function(radio) {
                 var newGeo = new THREE.CylinderGeometry(radio, radio, 5.0, 32.0);
                 that.cilindro.geometry = newGeo;
-                that.nodoBola.position.set(radio, 0.0, 0.0);
+                that.bola.position.set(radio+0.5, 0.0, 0.0);
             });
     }
 
