@@ -70,14 +70,18 @@ class MyBola extends THREE.Object3D {
     createGUI(gui, titleGui) {
         this.guiControls = new function() {
             this.desfase = 0.0;
+            this.radioMenor = 3.0;
+            this.radioMayor = 3.0;
         }
 
         var that = this;
         
         var folder = gui.addFolder (titleGui);
-        folder.add (this.guiControls, 'desfase', 0.0, 3.0, 0.1).name ('Extensión: ').listen()
+        folder.add (this.guiControls, 'desfase', 0.0, 8.0, 0.1).name ('Extensión: ').listen()
             .onChange(function(extension) {
-                that.nodoCilindro.scale.set(extension+1.0, 1.0, 1.0);
+                that.guiControls.desfase = extension;
+                that.guiControls.radioMayor = that.guiControls.radioMenor + extension
+                that.nodoCilindro.scale.x = that.guiControls.radioMayor/that.guiControls.radioMenor;
             });
     }
 
