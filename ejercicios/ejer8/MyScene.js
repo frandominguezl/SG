@@ -103,9 +103,6 @@ class MyScene extends THREE.Scene {
     
     // Y otro para mostrar u ocultar los ejes
     folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes : ');
-
-    folder = gui.addFolder ('Animación');
-    folder.add (this.guiControls, 'animacion').name ('Animación: ');
     
     return gui;
   }
